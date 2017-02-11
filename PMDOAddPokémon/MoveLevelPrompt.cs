@@ -16,7 +16,8 @@ namespace PMDOAddPokémon
         public MoveLevelPrompt(string PokeName, string MoveName)
         {
             InitializeComponent();
-
+            TopMost = true;
+            TopLevel = true;
             label1.Text = label1.Text.Replace("POKE", PokeName).Replace("MOVE", MoveName);
         }
 

@@ -78,11 +78,11 @@
             this.tbAbility2 = new System.Windows.Forms.TextBox();
             this.tbAbilityH = new System.Windows.Forms.TextBox();
             this.nudEXPYield = new System.Windows.Forms.NumericUpDown();
-            this.nudEggMove = new System.Windows.Forms.NumericUpDown();
-            this.nudEventMove = new System.Windows.Forms.NumericUpDown();
-            this.nudLvlMove = new System.Windows.Forms.NumericUpDown();
-            this.nudTMMove = new System.Windows.Forms.NumericUpDown();
-            this.nudTutorMove = new System.Windows.Forms.NumericUpDown();
+            this.nudEggMove = new System.Windows.Forms.TextBox();
+            this.nudEventMove = new System.Windows.Forms.TextBox();
+            this.nudLvlMove = new System.Windows.Forms.TextBox();
+            this.nudTMMove = new System.Windows.Forms.TextBox();
+            this.nudTutorMove = new System.Windows.Forms.TextBox();
             this.btnAddEgg = new System.Windows.Forms.Button();
             this.btnAddEvent = new System.Windows.Forms.Button();
             this.btnAddLvl = new System.Windows.Forms.Button();
@@ -118,11 +118,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFemaleRatio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudEXPYield)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEggMove)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEventMove)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLvlMove)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTMMove)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTutorMove)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSpriteNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMugShot)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudForms)).BeginInit();
@@ -664,7 +659,7 @@
             // 
             this.nudEXPYield.Location = new System.Drawing.Point(678, 343);
             this.nudEXPYield.Maximum = new decimal(new int[] {
-            255,
+            1000,
             0,
             0,
             0});
@@ -675,11 +670,6 @@
             // nudEggMove
             // 
             this.nudEggMove.Location = new System.Drawing.Point(12, 401);
-            this.nudEggMove.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
             this.nudEggMove.Name = "nudEggMove";
             this.nudEggMove.Size = new System.Drawing.Size(70, 20);
             this.nudEggMove.TabIndex = 22;
@@ -688,11 +678,6 @@
             // nudEventMove
             // 
             this.nudEventMove.Location = new System.Drawing.Point(122, 401);
-            this.nudEventMove.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
             this.nudEventMove.Name = "nudEventMove";
             this.nudEventMove.Size = new System.Drawing.Size(70, 20);
             this.nudEventMove.TabIndex = 22;
@@ -701,11 +686,6 @@
             // nudLvlMove
             // 
             this.nudLvlMove.Location = new System.Drawing.Point(235, 401);
-            this.nudLvlMove.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
             this.nudLvlMove.Name = "nudLvlMove";
             this.nudLvlMove.Size = new System.Drawing.Size(70, 20);
             this.nudLvlMove.TabIndex = 22;
@@ -714,11 +694,6 @@
             // nudTMMove
             // 
             this.nudTMMove.Location = new System.Drawing.Point(352, 401);
-            this.nudTMMove.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
             this.nudTMMove.Name = "nudTMMove";
             this.nudTMMove.Size = new System.Drawing.Size(70, 20);
             this.nudTMMove.TabIndex = 22;
@@ -727,11 +702,6 @@
             // nudTutorMove
             // 
             this.nudTutorMove.Location = new System.Drawing.Point(470, 401);
-            this.nudTutorMove.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
             this.nudTutorMove.Name = "nudTutorMove";
             this.nudTutorMove.Size = new System.Drawing.Size(70, 20);
             this.nudTutorMove.TabIndex = 22;
@@ -1078,11 +1048,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudFemaleRatio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudEXPYield)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEggMove)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEventMove)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLvlMove)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTMMove)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTutorMove)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSpriteNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMugShot)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudForms)).EndInit();
@@ -1143,11 +1108,11 @@
         private System.Windows.Forms.TextBox tbAbility2;
         private System.Windows.Forms.TextBox tbAbilityH;
         private System.Windows.Forms.NumericUpDown nudEXPYield;
-        private System.Windows.Forms.NumericUpDown nudEggMove;
-        private System.Windows.Forms.NumericUpDown nudEventMove;
-        private System.Windows.Forms.NumericUpDown nudLvlMove;
-        private System.Windows.Forms.NumericUpDown nudTMMove;
-        private System.Windows.Forms.NumericUpDown nudTutorMove;
+        private System.Windows.Forms.TextBox nudEggMove;
+        private System.Windows.Forms.TextBox nudEventMove;
+        private System.Windows.Forms.TextBox nudLvlMove;
+        private System.Windows.Forms.TextBox nudTMMove;
+        private System.Windows.Forms.TextBox nudTutorMove;
         private System.Windows.Forms.Button btnAddEgg;
         private System.Windows.Forms.Button btnAddEvent;
         private System.Windows.Forms.Button btnAddLvl;

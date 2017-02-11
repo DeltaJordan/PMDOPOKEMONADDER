@@ -18,6 +18,55 @@ namespace PMDOAddPokémon
         {
             InitializeComponent();
             Connection = conn;
+            foreach (Control nud in Controls)
+            {
+                if (nud is TextBox)
+                {
+                    if (nud.Name.Contains("Move"))
+                        nud.KeyDown += new KeyEventHandler(OnMoveEnter);
+                    
+                }
+            }
+        }
+
+        private void OnMoveEnter(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                e.Handled = e.SuppressKeyPress = true;
+                switch ((sender as TextBox).Name)
+                {
+                    case "nudEggMove":
+                        {
+                            btnAddEgg_Click(sender, new EventArgs());
+                        }
+                        break;
+                    case "nudEventMove":
+                        {
+                            btnAddEvent_Click(sender, new EventArgs());
+                        }
+                        break;
+                    case "nudLvlMove":
+                        {
+                            btnAddLvl_Click(sender, new EventArgs());
+                        }
+                        break;
+                    case "nudTMMove":
+                        {
+                            btnAddTM_Click(sender, new EventArgs());
+                        }
+                        break;
+                    case "nudTutorMove":
+                        {
+                            btnAddTutor_Click(sender, new EventArgs());
+                        }
+                        break;
+                    default:
+                        throw new Exception();
+                }
+
+                (sender as TextBox).Text = "";
+            }
         }
 
         private void nudDexNum_ValueChanged(object sender, EventArgs e)
@@ -33,9 +82,19 @@ namespace PMDOAddPokémon
 
         private void btnAddEgg_Click(object sender, EventArgs e)
         {
-            if (lbxEggMoves.Items.Contains(nudEggMove.Value) == false)
+            int MoveNum = 0;
+            try
             {
-                lbxEggMoves.Items.Add(nudEggMove.Value);
+                MoveNum = (int)((PokéDex.Moves)Enum.Parse(typeof(PokéDex.Moves), nudEggMove.Text.Replace("-", "0").Replace(" ", "_"), true));
+            }
+            catch
+            {
+                MessageBox.Show("Either this move does not exist or you spelled it wrong");
+                return;
+            }
+            if (lbxEggMoves.Items.Contains(MoveNum) == false)
+            {
+                lbxEggMoves.Items.Add(MoveNum);
             }
         }
 
@@ -56,28 +115,12 @@ namespace PMDOAddPokémon
             if (nudDexNum.Value < 7000)
             {
                 nudDexNum.Value += 7000;
-                if (!nudDexNum.ReadOnly)
-                {
-                    nudDexNum.ReadOnly = true;
-                }
-
-                else
-                {
-                    nudDexNum.ReadOnly = false;
-                }
+                nudDexNum.ReadOnly = !nudDexNum.ReadOnly;
             }
             else
             {
                 nudDexNum.Value -= 7000;
-                if (!nudDexNum.ReadOnly)
-                {
-                    nudDexNum.ReadOnly = true;
-                }
-
-                else
-                {
-                    nudDexNum.ReadOnly = false;
-                }
+                nudDexNum.ReadOnly = !nudDexNum.ReadOnly;
             }
         }
 
@@ -100,8 +143,20 @@ namespace PMDOAddPokémon
 
         private void btnAddEvent_Click(object sender, EventArgs e)
         {
-            if (!lbxEventMoves.Items.Contains(nudEventMove.Value))
-                lbxEventMoves.Items.Add(nudEventMove.Value);
+            int MoveNum = 0;
+            try
+            {
+                MoveNum = (int)((PokéDex.Moves)Enum.Parse(typeof(PokéDex.Moves), nudEventMove.Text.Replace("-", "0").Replace(" ", "_"), true));
+            }
+            catch
+            {
+                MessageBox.Show("Either this move does not exist or you spelled it wrong");
+                return;
+            }
+            if (lbxEventMoves.Items.Contains(MoveNum) == false)
+            {
+                lbxEventMoves.Items.Add(MoveNum);
+            }
         }
 
         private void lbxLevelMove_SelectedIndexChanged(object sender, EventArgs e)
@@ -128,8 +183,20 @@ namespace PMDOAddPokémon
 
         private void btnAddLvl_Click(object sender, EventArgs e)
         {
-            if (!lbxLevelMove.Items.Contains(nudLvlMove.Value))
-                lbxLevelMove.Items.Add(nudLvlMove.Value);
+            int MoveNum = 0;
+            try
+            {
+                MoveNum = (int)((PokéDex.Moves)Enum.Parse(typeof(PokéDex.Moves), nudLvlMove.Text.Replace("-", "0").Replace(" ", "_"), true));
+            }
+            catch
+            {
+                MessageBox.Show("Either this move does not exist or you spelled it wrong");
+                return;
+            }
+            if (lbxLevelMove.Items.Contains(MoveNum) == false)
+            {
+                lbxLevelMove.Items.Add(MoveNum);
+            }
         }
 
         private void lbxTMMoves_SelectedIndexChanged(object sender, EventArgs e)
@@ -147,8 +214,20 @@ namespace PMDOAddPokémon
 
         private void btnAddTM_Click(object sender, EventArgs e)
         {
-            if (!lbxTMMoves.Items.Contains(nudTMMove.Value))
-                lbxTMMoves.Items.Add(nudTMMove.Value);
+            int MoveNum = 0;
+            try
+            {
+                MoveNum = (int)((PokéDex.Moves)Enum.Parse(typeof(PokéDex.Moves), nudTMMove.Text.Replace("-", "0").Replace(" ", "_"), true));
+            }
+            catch
+            {
+                MessageBox.Show("Either this move does not exist or you spelled it wrong");
+                return;
+            }
+            if (lbxTMMoves.Items.Contains(MoveNum) == false)
+            {
+                lbxTMMoves.Items.Add(MoveNum);
+            }
         }
 
         private void delTMMove_Click(object sender, EventArgs e)
@@ -158,8 +237,20 @@ namespace PMDOAddPokémon
 
         private void btnAddTutor_Click(object sender, EventArgs e)
         {
-            if (!lbxTutorMoves.Items.Contains(nudTutorMove.Value))
-                lbxTutorMoves.Items.Add(nudTutorMove.Value);
+            int MoveNum = 0;
+            try
+            {
+                MoveNum = (int)((PokéDex.Moves)Enum.Parse(typeof(PokéDex.Moves), nudTutorMove.Text.Replace("-", "0").Replace(" ", "_"), true));
+            }
+            catch
+            {
+                MessageBox.Show("Either this move does not exist or you spelled it wrong");
+                return;
+            }
+            if (lbxTutorMoves.Items.Contains(MoveNum) == false)
+            {
+                lbxTutorMoves.Items.Add(MoveNum);
+            }
         }
 
         private void delTutorMove_Click(object sender, EventArgs e)
@@ -178,63 +269,85 @@ namespace PMDOAddPokémon
         bool useNameForAll = false;
         private void btnFinish_Click(object sender, EventArgs e)
         {
-            Enabled = false;
-            bool shouldReplace = false;
-            string PokeInfo = @"INSERT INTO `pokedex_pokemon` (`DexNum`, `PokemonName`, `SpeciesName`, `GrowthGroup`, `EggGroup1`, `EggGroup2`) VALUES (" + nudDexNum.Value + @", '" + tbName.Text + @"', '" + tbSpecies.Text + @"'," + cbxGrowthGroup.SelectedIndex + @", '" + tbEggGroup1.Text + @"', '" + tbEggGroup2.Text + @"')";
-            MySqlCommand addPokedexInfo = new MySqlCommand(PokeInfo, Connection);
-            try
+            if (cbxAlolan.Checked)
             {
-                addPokedexInfo.ExecuteScalar();
-            }
-            catch
-            {
-                if (MessageBox.Show("This Pokémon already exists! Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+
+                int DexNum = (int)(nudDexNum.Value - 7000);
+
+                try
                 {
-                    shouldReplace = true;
-                    PokeInfo = @"REPLACE INTO `pokedex_pokemon` (`DexNum`, `PokemonName`, `SpeciesName`, `GrowthGroup`, `EggGroup1`, `EggGroup2`) VALUES (" + nudDexNum.Value + @", '" + tbName.Text + @"', '" + tbSpecies.Text + @"'," + cbxGrowthGroup.SelectedIndex + @", '" + tbEggGroup1.Text + @"', '" + tbEggGroup2.Text + @"')";
-                    addPokedexInfo = new MySqlCommand(PokeInfo, Connection);
-                    try
+                    Connection.Open();
+
+                    string stm = "SELECT VERSION()";
+                    MySqlCommand cmd = new MySqlCommand(stm, Connection);
+                    string version = Convert.ToString(cmd.ExecuteScalar());
+                    Console.WriteLine("MySQL version : {0}", version);
+
+                }
+                catch
+                {
+                    MessageBox.Show("There was an error with your connection to the SQL server. Please check your internet connection and make sure you entered the info right.");
+                    Enabled = true;
+                    return;
+                }
+
+                int formNum = 7;
+
+                Enabled = false;
+                bool shouldReplace = false;
+                string PokeInfo = @"INSERT INTO `pokedex_pokemon` (`DexNum`, `PokemonName`, `SpeciesName`, `GrowthGroup`, `EggGroup1`, `EggGroup2`) VALUES (" + DexNum + @", '" + tbName.Text + @"', '" + tbSpecies.Text + @"'," + cbxGrowthGroup.SelectedIndex + @", '" + tbEggGroup1.Text + @"', '" + tbEggGroup2.Text + @"')";
+                MySqlCommand addPokedexInfo = new MySqlCommand(PokeInfo, Connection);
+                try
+                {
+                    addPokedexInfo.ExecuteScalar();
+                }
+                catch
+                {
+                    if (MessageBox.Show("This Pokémon already exists! Since this is an Alolan Pokémon I recommend you leave the original alone. Stats are located in the next query. Would you still like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        addPokedexInfo.ExecuteScalar();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("A portion of the data you entered was incorrect. Please check your data. Exception Data: " + ex.StackTrace, "Error");
-                        Enabled = true;
-                        return;
+                        shouldReplace = true;
+                        PokeInfo = @"REPLACE INTO `pokedex_pokemon` (`DexNum`, `PokemonName`, `SpeciesName`, `GrowthGroup`, `EggGroup1`, `EggGroup2`) VALUES (" + DexNum + @", '" + tbName.Text + @"', '" + tbSpecies.Text + @"'," + cbxGrowthGroup.SelectedIndex + @", '" + tbEggGroup1.Text + @"', '" + tbEggGroup2.Text + @"')";
+                        addPokedexInfo = new MySqlCommand(PokeInfo, Connection);
+                        try
+                        {
+                            addPokedexInfo.ExecuteScalar();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("A portion of the data you entered was incorrect. Please check your data. Exception Data: " + ex.StackTrace, "Error");
+                            Enabled = true;
+                            return;
+                        }
                     }
                 }
-            }
-            //If pokedex_appearence is used, this needs added. It seems only pokedex_form is used
-            for (int i = 0; i < (int)nudForms.Value; i++)
-            {
-
-            }
-
-            //"{" Helps me find EggMoveInfo string in other for statements 
-            {
-                string EggMoveInfo = "";
-                shouldReplace = false;
-                for (int formNum = 0; formNum < nudForms.Value; formNum++)
+                //If pokedex_appearence is used, this needs added. It seems only pokedex_form is used
+                for (int i = 0; i < (int)nudForms.Value; i++)
                 {
+
+                }
+
+                //"{" Helps me find EggMoveInfo string in other for statements 
+                {
+                    string EggMoveInfo = "";
+                    shouldReplace = false;
                     for (int i = 0; i < lbxEggMoves.Items.Count; i++)
                     {
                         try
                         {
                             if (shouldReplace)
                             {
-                                EggMoveInfo = @"REPLACE INTO `pokedex_pokemoneggmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + nudDexNum.Value + @", '" + formNum + @"', '" + i + @"', '" + lbxEggMoves.GetItemText(lbxEggMoves.Items[i]) + @"')";
+                                EggMoveInfo = @"REPLACE INTO `pokedex_pokemoneggmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxEggMoves.GetItemText(lbxEggMoves.Items[i]) + @"')";
                                 shouldReplace = false;
                             }
                             else
-                                EggMoveInfo = @"INSERT INTO `pokedex_pokemoneggmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + nudDexNum.Value + @", '" + formNum + @"', '" + i + @"', '" + lbxEggMoves.GetItemText(lbxEggMoves.Items[i]) + @"')";
+                                EggMoveInfo = @"INSERT INTO `pokedex_pokemoneggmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxEggMoves.GetItemText(lbxEggMoves.Items[i]) + @"')";
                             MySqlCommand AddPokeEggMoves = new MySqlCommand(EggMoveInfo, Connection);
                             AddPokeEggMoves.ExecuteScalar();
 
                         }
                         catch
                         {
-                            if (EggMoveInfo.StartsWith("REPLACE"))
+                            if (EggMoveInfo.Contains("REPLACE"))
                             {
                                 MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
                                 Enabled = true;
@@ -251,31 +364,28 @@ namespace PMDOAddPokémon
                         }
                     }
                 }
-            }
 
-            {
-                string EventMoveInfo = "";
-                shouldReplace = false;
-                for (int formNum = 0; formNum < nudForms.Value; formNum++)
                 {
+                    string EventMoveInfo = "";
+                    shouldReplace = false;
                     for (int i = 0; i < lbxEventMoves.Items.Count; i++)
                     {
                         try
                         {
                             if (shouldReplace)
                             {
-                                EventMoveInfo = @"REPLACE INTO `pokedex_pokemoneventmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + nudDexNum.Value + @", '" + formNum + @"', '" + i + @"', '" + lbxEventMoves.GetItemText(lbxEventMoves.Items[i]) + @"')";
+                                EventMoveInfo = @"REPLACE INTO `pokedex_pokemoneventmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxEventMoves.GetItemText(lbxEventMoves.Items[i]) + @"')";
                                 shouldReplace = false;
                             }
                             else
-                                EventMoveInfo = @"INSERT INTO `pokedex_pokemoneventmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + nudDexNum.Value + @", '" + formNum + @"', '" + i + @"', '" + lbxEventMoves.GetItemText(lbxEventMoves.Items[i]) + @"')";
+                                EventMoveInfo = @"INSERT INTO `pokedex_pokemoneventmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxEventMoves.GetItemText(lbxEventMoves.Items[i]) + @"')";
                             MySqlCommand AddPokeEventMoves = new MySqlCommand(EventMoveInfo, Connection);
                             AddPokeEventMoves.ExecuteScalar();
 
                         }
                         catch
                         {
-                            if (EventMoveInfo.StartsWith("REPLACE"))
+                            if (EventMoveInfo.Contains("REPLACE"))
                             {
                                 MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
                                 Enabled = true;
@@ -292,77 +402,386 @@ namespace PMDOAddPokémon
                         }
                     }
                 }
-            }
 
-            shouldReplace = false;
-            string FormInfo = "";
-            string FormName = "Normal";
-            for (int formNum = 0; formNum < nudForms.Value; formNum++)
-            {
-                if (!useNameForAll)
                 {
-                    using(FormNamePrompt prompt = new FormNamePrompt(formNum))
+                    shouldReplace = false;
+                    string FormInfo = "";
+                    string FormName = "Normal";
+
+                    try
                     {
-                        if (prompt.ShowDialog() == DialogResult.OK)
+                        if (shouldReplace)
                         {
-                            FormName = prompt.Result;
-                            useNameForAll = prompt.useForAll;
+                            FormInfo = @"REPLACE INTO `pokedex_pokemonform` (`DexNum`, `FormNum`, `FormName`, `HP`, `Attack`, `Defense`, `SpecialAttack`, `SpecialDefense`, `Speed`, `Male`, `Female`, `Height`, `Weight`, `Type1`, `Type2`, `Ability1`, `Ability2`, `Ability3`, `ExpYield`) VALUES " +
+                                @"(" + DexNum + @", '" + formNum + @"', '" + FormName + @"', '" + nudHP.Value + @"', '" + nudATK.Value + @"', '" + nudDef.Value + @"', '" +
+                                nudSPATK.Value + @"', '" + nudSPDEF.Value + @"', '" + nudSPEED.Value + @"', '" + nudMaleRatio.Value + @"', '" + nudFemaleRatio.Value + @"', '" + nudHeight.Value + @"', '" +
+                                nudWeight.Value + @"', '" + cbxType1.SelectedIndex + @"', '" + cbxType2.SelectedIndex + @"', '" + tbAbility1.Text + @"', '" + tbAbility2.Text + @"', '" + tbAbilityH.Text + @"', '" + nudEXPYield.Value + @"')";
+                            shouldReplace = false;
                         }
                         else
+                            FormInfo = @"INSERT INTO `pokedex_pokemonform` (`DexNum`, `FormNum`, `FormName`, `HP`, `Attack`, `Defense`, `SpecialAttack`, `SpecialDefense`, `Speed`, `Male`, `Female`, `Height`, `Weight`, `Type1`, `Type2`, `Ability1`, `Ability2`, `Ability3`, `ExpYield`) VALUES " +
+                                @"(" + DexNum + @", '" + formNum + @"', '" + FormName + @"', '" + nudHP.Value + @"', '" + nudATK.Value + @"', '" + nudDef.Value + @"', '" +
+                                nudSPATK.Value + @"', '" + nudSPDEF.Value + @"', '" + nudSPEED.Value + @"', '" + nudMaleRatio.Value + @"', '" + nudFemaleRatio.Value + @"', '" + nudHeight.Value + @"', '" +
+                                nudWeight.Value + @"', '" + cbxType1.SelectedIndex + @"', '" + cbxType2.SelectedIndex + @"', '" + tbAbility1.Text + @"', '" + tbAbility2.Text + @"', '" + tbAbilityH.Text + @"', '" + nudEXPYield.Value + @"')";
+                        MySqlCommand AddPokeEventMoves = new MySqlCommand(FormInfo, Connection);
+                        AddPokeEventMoves.ExecuteScalar();
+
+                    }
+                    catch
+                    {
+                        if (FormInfo.Contains("REPLACE"))
                         {
-                            formNum--;
-                            continue;
+                            MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
+                            Enabled = true;
+                            return;
+                        }
+
+                        if (MessageBox.Show("This Pokémon already has stats at form: " + formNum + ". Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            shouldReplace = true;
                         }
                     }
                 }
 
-                try
                 {
-                    if (shouldReplace)
+                    string LevelMoveInfo = "";
+                    shouldReplace = false;
+                    for (int i = 0; i < lbxLevelMove.Items.Count; i++)
                     {
-                        FormInfo = @"REPLACE INTO `pokedex_pokemonform` (`DexNum`, `FormNum`, `FormName`, `HP`, `Attack`, `Defense`, `SpecialAttack`, `SpecialDefense`, `Speed`, `Male`, `Female`, `Height`, `Weight`, `Type1`, `Type2`, `Ability1`, `Ability2`, `Ability3`, `ExpYield`) VALUES " +
-                            @"(" + nudDexNum.Value + @", '" + formNum + @"', '" + FormName + @"', '" + nudHP.Value + @"', '" + nudATK.Value + @"', '" + nudDef.Value + @"', '" +
-                            nudSPATK.Value + @"', '" + nudSPDEF.Value + @"', '" + nudSPEED.Value + @"', '" + nudMaleRatio.Value + @"', '" + nudFemaleRatio.Value + @"', '" + nudHeight.Value + @"', '" +
-                            nudWeight.Value + @"', '" + cbxType1.SelectedIndex + @"', '" + cbxType2.SelectedIndex + @"', '" + tbAbility1.Text + @"', '" + tbAbility2.Text + @"', '" + tbAbilityH.Text + @"', '" + nudEXPYield.Value + @"')";
-                        shouldReplace = false;
-                    }
-                    else
-                        FormInfo = @"INSERT INTO `pokedex_pokemonform` (`DexNum`, `FormNum`, `FormName`, `HP`, `Attack`, `Defense`, `SpecialAttack`, `SpecialDefense`, `Speed`, `Male`, `Female`, `Height`, `Weight`, `Type1`, `Type2`, `Ability1`, `Ability2`, `Ability3`, `ExpYield`) VALUES " +
-                            @"(" + nudDexNum.Value + @", '" + formNum + @"', '" + FormName + @"', '" + nudHP.Value + @"', '" + nudATK.Value + @"', '" + nudDef.Value + @"', '" + 
-                            nudSPATK.Value + @"', '" + nudSPDEF.Value + @"', '" + nudSPEED.Value + @"', '" + nudMaleRatio.Value + @"', '" + nudFemaleRatio.Value + @"', '" + nudHeight.Value + @"', '" + 
-                            nudWeight.Value + @"', '" + cbxType1.SelectedIndex + @"', '" + cbxType2.SelectedIndex + @"', '" + tbAbility1.Text + @"', '" + tbAbility2.Text + @"', '" + tbAbilityH.Text + @"', '" + nudEXPYield.Value + @"')";
-                    MySqlCommand AddPokeEventMoves = new MySqlCommand(FormInfo, Connection);
-                    AddPokeEventMoves.ExecuteScalar();
 
+                        int LeveltoLearn = 0;
+                        using (MoveLevelPrompt prompt = new MoveLevelPrompt(tbName.Text, MySQLInitialization.PokémonData.GetMoveFromIndex(int.Parse(lbxLevelMove.GetItemText(lbxLevelMove.Items[i])), Connection)))
+                        {
+                            if (prompt.ShowDialog() == DialogResult.OK)
+                            {
+                                LeveltoLearn = prompt.Result;
+                            }
+                            else
+                            {
+                                i--;
+                                continue;
+                            }
+                        }
+                        try
+                        {
+                            if (shouldReplace)
+                            {
+                                LevelMoveInfo = @"REPLACE INTO `pokedex_pokemonlevelmove` (`DexNum`, `FormNum`, `MoveIndex`, `LevelNum`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + LeveltoLearn + @"', '" + lbxLevelMove.GetItemText(lbxLevelMove.Items[i]) + @"')";
+                                shouldReplace = false;
+                            }
+                            else
+                            {
+                                LevelMoveInfo = @"INSERT INTO `pokedex_pokemonlevelmove` (`DexNum`, `FormNum`, `MoveIndex`, `LevelNum`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + LeveltoLearn + @"', '" + lbxLevelMove.GetItemText(lbxLevelMove.Items[i]) + @"')";
+                            }
+
+                            MySqlCommand AddPokeEventMoves = new MySqlCommand(LevelMoveInfo, Connection);
+                            AddPokeEventMoves.ExecuteScalar();
+
+                        }
+                        catch
+                        {
+                            if (LevelMoveInfo.Contains("REPLACE"))
+                            {
+                                MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
+                                Enabled = true;
+                                return;
+                            }
+
+                            if (MessageBox.Show("This Pokémon already has a move at index: " + i + ". Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            {
+                                shouldReplace = true;
+                                i--;
+                            }
+
+                        }
+                    }
                 }
-                catch
+
                 {
-                    if (FormInfo.StartsWith("REPLACE"))
+                    string TMMoveInfo = "";
+                    shouldReplace = false;
+                    for (int i = 0; i < lbxTMMoves.Items.Count; i++)
                     {
-                        MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
-                        Enabled = true;
-                        return;
-                    }
+                        try
+                        {
+                            if (shouldReplace)
+                            {
+                                TMMoveInfo = @"REPLACE INTO `pokedex_pokemontmmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxTMMoves.GetItemText(lbxTMMoves.Items[i]) + @"')";
+                                shouldReplace = false;
+                            }
+                            else
+                                TMMoveInfo = @"INSERT INTO `pokedex_pokemontmmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxTMMoves.GetItemText(lbxTMMoves.Items[i]) + @"')";
+                            MySqlCommand AddPokeEventMoves = new MySqlCommand(TMMoveInfo, Connection);
+                            AddPokeEventMoves.ExecuteScalar();
 
-                    if (MessageBox.Show("This Pokémon already has stats at form: " + formNum + ". Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        shouldReplace = true;
-                        formNum--;
-                        continue;
-                    }
+                        }
+                        catch
+                        {
+                            if (TMMoveInfo.Contains("REPLACE"))
+                            {
+                                MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
+                                Enabled = true;
+                                return;
+                            }
 
+                            if (MessageBox.Show("This Pokémon already has a move at index: " + i + ". Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            {
+                                shouldReplace = true;
+                                i--;
+                                continue;
+                            }
+
+                        }
+                    }
                 }
-            }
 
-            {
-                string LevelMoveInfo = "";
-                shouldReplace = false;
-                for (int formNum = 0; formNum < nudForms.Value; formNum++)
                 {
+                    string TutorMoveInfo = "";
+                    shouldReplace = false;
                     for (int i = 0; i < lbxEventMoves.Items.Count; i++)
                     {
                         try
                         {
+                            if (shouldReplace)
+                            {
+                                TutorMoveInfo = @"REPLACE INTO `pokedex_pokemontutormove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxTutorMoves.GetItemText(lbxTutorMoves.Items[i]) + @"')";
+                                shouldReplace = false;
+                            }
+                            else
+                                TutorMoveInfo = @"INSERT INTO `pokedex_pokemontutormove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxTutorMoves.GetItemText(lbxTutorMoves.Items[i]) + @"')";
+                            MySqlCommand AddPokeEventMoves = new MySqlCommand(TutorMoveInfo, Connection);
+                            AddPokeEventMoves.ExecuteScalar();
+
+                        }
+                        catch
+                        {
+                            if (TutorMoveInfo.Contains("REPLACE"))
+                            {
+                                MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
+                                Enabled = true;
+                                return;
+                            }
+
+                            if (MessageBox.Show("This Pokémon already has a move at index: " + i + ". Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            {
+                                shouldReplace = true;
+                                i--;
+                                continue;
+                            }
+
+                        }
+                    }
+                }
+
+                Connection.Close();
+                Enabled = true;
+            }
+
+            else
+            {
+
+                int DexNum = (int)(nudDexNum.Value);
+
+                try
+                {
+                    Connection.Open();
+
+                    string stm = "SELECT VERSION()";
+                    MySqlCommand cmd = new MySqlCommand(stm, Connection);
+                    string version = Convert.ToString(cmd.ExecuteScalar());
+                    Console.WriteLine("MySQL version : {0}", version);
+
+                }
+                catch
+                {
+                    MessageBox.Show("There was an error with your connection to the SQL server. Please check your internet connection and make sure you entered the info right.");
+                    return;
+                }
+
+                Enabled = false;
+                bool shouldReplace = false;
+                string PokeInfo = @"INSERT INTO `pokedex_pokemon` (`DexNum`, `PokemonName`, `SpeciesName`, `GrowthGroup`, `EggGroup1`, `EggGroup2`) VALUES (" + DexNum + @", '" + tbName.Text + @"', '" + tbSpecies.Text + @"'," + cbxGrowthGroup.SelectedIndex + @", '" + tbEggGroup1.Text + @"', '" + tbEggGroup2.Text + @"')";
+                MySqlCommand addPokedexInfo = new MySqlCommand(PokeInfo, Connection);
+                try
+                {
+                    addPokedexInfo.ExecuteScalar();
+                }
+                catch
+                {
+                    if (MessageBox.Show("This Pokémon already exists! Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        shouldReplace = true;
+                        PokeInfo = @"REPLACE INTO `pokedex_pokemon` (`DexNum`, `PokemonName`, `SpeciesName`, `GrowthGroup`, `EggGroup1`, `EggGroup2`) VALUES (" + DexNum + @", '" + tbName.Text + @"', '" + tbSpecies.Text + @"'," + cbxGrowthGroup.SelectedIndex + @", '" + tbEggGroup1.Text + @"', '" + tbEggGroup2.Text + @"')";
+                        addPokedexInfo = new MySqlCommand(PokeInfo, Connection);
+                        try
+                        {
+                            addPokedexInfo.ExecuteScalar();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("A portion of the data you entered was incorrect. Please check your data. Exception Data: " + ex.StackTrace, "Error");
+                            Enabled = true;
+                            return;
+                        }
+                    }
+                }
+                //If pokedex_appearence is used, this needs added. It seems only pokedex_form is used
+                for (int i = 0; i < (int)nudForms.Value; i++)
+                {
+
+                }
+
+                //"{" Helps me find EggMoveInfo string in other for statements 
+                {
+                    string EggMoveInfo = "";
+                    shouldReplace = false;
+                    for (int formNum = 0; formNum < nudForms.Value; formNum++)
+                    {
+                        for (int i = 0; i < lbxEggMoves.Items.Count; i++)
+                        {
+                            try
+                            {
+                                if (shouldReplace)
+                                {
+                                    EggMoveInfo = @"REPLACE INTO `pokedex_pokemoneggmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxEggMoves.GetItemText(lbxEggMoves.Items[i]) + @"')";
+                                    shouldReplace = false;
+                                }
+                                else
+                                    EggMoveInfo = @"INSERT INTO `pokedex_pokemoneggmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxEggMoves.GetItemText(lbxEggMoves.Items[i]) + @"')";
+                                MySqlCommand AddPokeEggMoves = new MySqlCommand(EggMoveInfo, Connection);
+                                AddPokeEggMoves.ExecuteScalar();
+
+                            }
+                            catch
+                            {
+                                if (EggMoveInfo.Contains("REPLACE"))
+                                {
+                                    MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
+                                    Enabled = true;
+                                    return;
+                                }
+
+                                if (MessageBox.Show("This Pokémon already has a move at index: " + i + ". Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                {
+                                    shouldReplace = true;
+                                    i--;
+                                    continue;
+                                }
+
+                            }
+                        }
+                    }
+                }
+
+                {
+                    string EventMoveInfo = "";
+                    shouldReplace = false;
+                    for (int formNum = 0; formNum < nudForms.Value; formNum++)
+                    {
+                        for (int i = 0; i < lbxEventMoves.Items.Count; i++)
+                        {
+                            try
+                            {
+                                if (shouldReplace)
+                                {
+                                    EventMoveInfo = @"REPLACE INTO `pokedex_pokemoneventmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxEventMoves.GetItemText(lbxEventMoves.Items[i]) + @"')";
+                                    shouldReplace = false;
+                                }
+                                else
+                                    EventMoveInfo = @"INSERT INTO `pokedex_pokemoneventmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxEventMoves.GetItemText(lbxEventMoves.Items[i]) + @"')";
+                                MySqlCommand AddPokeEventMoves = new MySqlCommand(EventMoveInfo, Connection);
+                                AddPokeEventMoves.ExecuteScalar();
+
+                            }
+                            catch
+                            {
+                                if (EventMoveInfo.Contains("REPLACE"))
+                                {
+                                    MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
+                                    Enabled = true;
+                                    return;
+                                }
+
+                                if (MessageBox.Show("This Pokémon already has a move at index: " + i + ". Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                {
+                                    shouldReplace = true;
+                                    i--;
+                                    continue;
+                                }
+
+                            }
+                        }
+                    }
+                }
+
+                shouldReplace = false;
+                string FormInfo = "";
+                string FormName = "Normal";
+                for (int formNum = 0; formNum < nudForms.Value; formNum++)
+                {
+                    if (!useNameForAll)
+                    {
+                        using (FormNamePrompt prompt = new FormNamePrompt(formNum))
+                        {
+                            if (prompt.ShowDialog() == DialogResult.OK)
+                            {
+                                FormName = prompt.Result;
+                                useNameForAll = prompt.useForAll;
+                            }
+                            else
+                            {
+                                formNum--;
+                                continue;
+                            }
+                        }
+                    }
+
+                    try
+                    {
+                        if (shouldReplace)
+                        {
+                            FormInfo = @"REPLACE INTO `pokedex_pokemonform` (`DexNum`, `FormNum`, `FormName`, `HP`, `Attack`, `Defense`, `SpecialAttack`, `SpecialDefense`, `Speed`, `Male`, `Female`, `Height`, `Weight`, `Type1`, `Type2`, `Ability1`, `Ability2`, `Ability3`, `ExpYield`) VALUES " +
+                                @"(" + DexNum + @", '" + formNum + @"', '" + FormName + @"', '" + nudHP.Value + @"', '" + nudATK.Value + @"', '" + nudDef.Value + @"', '" +
+                                nudSPATK.Value + @"', '" + nudSPDEF.Value + @"', '" + nudSPEED.Value + @"', '" + nudMaleRatio.Value + @"', '" + nudFemaleRatio.Value + @"', '" + nudHeight.Value + @"', '" +
+                                nudWeight.Value + @"', '" + cbxType1.SelectedIndex + @"', '" + cbxType2.SelectedIndex + @"', '" + tbAbility1.Text + @"', '" + tbAbility2.Text + @"', '" + tbAbilityH.Text + @"', '" + nudEXPYield.Value + @"')";
+                            shouldReplace = false;
+                        }
+                        else
+                            FormInfo = @"INSERT INTO `pokedex_pokemonform` (`DexNum`, `FormNum`, `FormName`, `HP`, `Attack`, `Defense`, `SpecialAttack`, `SpecialDefense`, `Speed`, `Male`, `Female`, `Height`, `Weight`, `Type1`, `Type2`, `Ability1`, `Ability2`, `Ability3`, `ExpYield`) VALUES " +
+                                @"(" + DexNum + @", '" + formNum + @"', '" + FormName + @"', '" + nudHP.Value + @"', '" + nudATK.Value + @"', '" + nudDef.Value + @"', '" +
+                                nudSPATK.Value + @"', '" + nudSPDEF.Value + @"', '" + nudSPEED.Value + @"', '" + nudMaleRatio.Value + @"', '" + nudFemaleRatio.Value + @"', '" + nudHeight.Value + @"', '" +
+                                nudWeight.Value + @"', '" + cbxType1.SelectedIndex + @"', '" + cbxType2.SelectedIndex + @"', '" + tbAbility1.Text + @"', '" + tbAbility2.Text + @"', '" + tbAbilityH.Text + @"', '" + nudEXPYield.Value + @"')";
+                        MySqlCommand AddPokeEventMoves = new MySqlCommand(FormInfo, Connection);
+                        AddPokeEventMoves.ExecuteScalar();
+
+                    }
+                    catch
+                    {
+                        if (FormInfo.Contains("REPLACE"))
+                        {
+                            MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
+                            Enabled = true;
+                            return;
+                        }
+
+                        if (MessageBox.Show("This Pokémon already has stats at form: " + formNum + ". Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            shouldReplace = true;
+                            formNum--;
+                            continue;
+                        }
+
+                    }
+                }
+
+                {
+                    string LevelMoveInfo = "";
+                    shouldReplace = false;
+                    for (int formNum = 0; formNum < nudForms.Value; formNum++)
+                    {
+                        for (int i = 0; i < lbxLevelMove.Items.Count; i++)
+                        {
+
                             int LeveltoLearn = 0;
                             using (MoveLevelPrompt prompt = new MoveLevelPrompt(tbName.Text, MySQLInitialization.PokémonData.GetMoveFromIndex(int.Parse(lbxLevelMove.GetItemText(lbxLevelMove.Items[i])), Connection)))
                             {
@@ -376,125 +795,132 @@ namespace PMDOAddPokémon
                                     continue;
                                 }
                             }
-                            if (shouldReplace)
+                            try
                             {
-                                LevelMoveInfo = @"REPLACE INTO `pokedex_pokemonlevelmove` (`DexNum`, `FormNum`, `MoveIndex`, `LevelNum`, `Move`) VALUES (" + nudDexNum.Value + @", '" + formNum + @"', '" + i + @"', '" + LeveltoLearn + @"', '" + lbxLevelMove.GetItemText(lbxLevelMove.Items[i]) + @"')";
-                                shouldReplace = false;
-                            }
-                            else
-                                LevelMoveInfo = @"INSERT INTO `pokedex_pokemonlevelmove` (`DexNum`, `FormNum`, `MoveIndex`, `LevelNum`, `Move`) VALUES (" + nudDexNum.Value + @", '" + formNum + @"', '" + i + @"', '" + LeveltoLearn + @"', '" + lbxLevelMove.GetItemText(lbxLevelMove.Items[i]) + @"')";
-                            MySqlCommand AddPokeEventMoves = new MySqlCommand(LevelMoveInfo, Connection);
-                            AddPokeEventMoves.ExecuteScalar();
+                                if (shouldReplace)
+                                {
+                                    LevelMoveInfo = @"REPLACE INTO `pokedex_pokemonlevelmove` (`DexNum`, `FormNum`, `MoveIndex`, `LevelNum`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + LeveltoLearn + @"', '" + lbxLevelMove.GetItemText(lbxLevelMove.Items[i]) + @"')";
+                                    shouldReplace = false;
+                                }
+                                else
+                                {
+                                    LevelMoveInfo = @"INSERT INTO `pokedex_pokemonlevelmove` (`DexNum`, `FormNum`, `MoveIndex`, `LevelNum`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + LeveltoLearn + @"', '" + lbxLevelMove.GetItemText(lbxLevelMove.Items[i]) + @"')";
+                                }
 
-                        }
-                        catch
-                        {
-                            if (LevelMoveInfo.StartsWith("REPLACE"))
+                                MySqlCommand AddPokeEventMoves = new MySqlCommand(LevelMoveInfo, Connection);
+                                AddPokeEventMoves.ExecuteScalar();
+
+                            }
+                            catch
                             {
-                                MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
-                                Enabled = true;
-                                return;
-                            }
+                                if (LevelMoveInfo.Contains("REPLACE"))
+                                {
+                                    MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
+                                    Enabled = true;
+                                    return;
+                                }
 
-                            if (MessageBox.Show("This Pokémon already has a move at index: " + i + ". Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            {
-                                shouldReplace = true;
-                                i--;
-                                continue;
-                            }
+                                if (MessageBox.Show("This Pokémon already has a move at index: " + i + ". Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                {
+                                    shouldReplace = true;
+                                    i--;
+                                }
 
+                            }
                         }
                     }
                 }
-            }
 
-            {
-                string TMMoveInfo = "";
-                shouldReplace = false;
-                for (int formNum = 0; formNum < nudForms.Value; formNum++)
                 {
-                    for (int i = 0; i < lbxEventMoves.Items.Count; i++)
+                    string TMMoveInfo = "";
+                    shouldReplace = false;
+                    for (int formNum = 0; formNum < nudForms.Value; formNum++)
                     {
-                        try
+                        for (int i = 0; i < lbxTMMoves.Items.Count; i++)
                         {
-                            if (shouldReplace)
+                            try
                             {
-                                TMMoveInfo = @"REPLACE INTO `pokedex_pokemontmmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + nudDexNum.Value + @", '" + formNum + @"', '" + i + @"', '" + lbxTMMoves.GetItemText(lbxTMMoves.Items[i]) + @"')";
-                                shouldReplace = false;
-                            }
-                            else
-                                TMMoveInfo = @"INSERT INTO `pokedex_pokemontmmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + nudDexNum.Value + @", '" + formNum + @"', '" + i + @"', '" + lbxTMMoves.GetItemText(lbxTMMoves.Items[i]) + @"')";
-                            MySqlCommand AddPokeEventMoves = new MySqlCommand(TMMoveInfo, Connection);
-                            AddPokeEventMoves.ExecuteScalar();
+                                if (shouldReplace)
+                                {
+                                    TMMoveInfo = @"REPLACE INTO `pokedex_pokemontmmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxTMMoves.GetItemText(lbxTMMoves.Items[i]) + @"')";
+                                    shouldReplace = false;
+                                }
+                                else
+                                    TMMoveInfo = @"INSERT INTO `pokedex_pokemontmmove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxTMMoves.GetItemText(lbxTMMoves.Items[i]) + @"')";
+                                MySqlCommand AddPokeEventMoves = new MySqlCommand(TMMoveInfo, Connection);
+                                AddPokeEventMoves.ExecuteScalar();
 
-                        }
-                        catch
-                        {
-                            if (TMMoveInfo.StartsWith("REPLACE"))
+                            }
+                            catch
                             {
-                                MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
-                                Enabled = true;
-                                return;
-                            }
+                                if (TMMoveInfo.Contains("REPLACE"))
+                                {
+                                    MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
+                                    Enabled = true;
+                                    return;
+                                }
 
-                            if (MessageBox.Show("This Pokémon already has a move at index: " + i + ". Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            {
-                                shouldReplace = true;
-                                i--;
-                                continue;
-                            }
+                                if (MessageBox.Show("This Pokémon already has a move at index: " + i + ". Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                {
+                                    shouldReplace = true;
+                                    i--;
+                                    continue;
+                                }
 
+                            }
                         }
                     }
                 }
-            }
 
-            {
-                string TutorMoveInfo = "";
-                shouldReplace = false;
-                for (int formNum = 0; formNum < nudForms.Value; formNum++)
                 {
-                    for (int i = 0; i < lbxEventMoves.Items.Count; i++)
+                    string TutorMoveInfo = "";
+                    shouldReplace = false;
+                    for (int formNum = 0; formNum < nudForms.Value; formNum++)
                     {
-                        try
+                        for (int i = 0; i < lbxEventMoves.Items.Count; i++)
                         {
-                            if (shouldReplace)
+                            try
                             {
-                                TutorMoveInfo = @"REPLACE INTO `pokedex_pokemontutormove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + nudDexNum.Value + @", '" + formNum + @"', '" + i + @"', '" + lbxTutorMoves.GetItemText(lbxTutorMoves.Items[i]) + @"')";
-                                shouldReplace = false;
-                            }
-                            else
-                                TutorMoveInfo = @"INSERT INTO `pokedex_pokemontutormove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + nudDexNum.Value + @", '" + formNum + @"', '" + i + @"', '" + lbxTutorMoves.GetItemText(lbxTutorMoves.Items[i]) + @"')";
-                            MySqlCommand AddPokeEventMoves = new MySqlCommand(TutorMoveInfo, Connection);
-                            AddPokeEventMoves.ExecuteScalar();
+                                if (shouldReplace)
+                                {
+                                    TutorMoveInfo = @"REPLACE INTO `pokedex_pokemontutormove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxTutorMoves.GetItemText(lbxTutorMoves.Items[i]) + @"')";
+                                    shouldReplace = false;
+                                }
+                                else
+                                    TutorMoveInfo = @"INSERT INTO `pokedex_pokemontutormove` (`DexNum`, `FormNum`, `MoveIndex`, `Move`) VALUES (" + DexNum + @", '" + formNum + @"', '" + i + @"', '" + lbxTutorMoves.GetItemText(lbxTutorMoves.Items[i]) + @"')";
+                                MySqlCommand AddPokeEventMoves = new MySqlCommand(TutorMoveInfo, Connection);
+                                AddPokeEventMoves.ExecuteScalar();
 
-                        }
-                        catch
-                        {
-                            if (TutorMoveInfo.StartsWith("REPLACE"))
+                            }
+                            catch
                             {
-                                MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
-                                Enabled = true;
-                                return;
-                            }
+                                if (TutorMoveInfo.Contains("REPLACE"))
+                                {
+                                    MessageBox.Show("A portion of the data you entered was incorrect. Please check your data.", "Error");
+                                    Enabled = true;
+                                    return;
+                                }
 
-                            if (MessageBox.Show("This Pokémon already has a move at index: " + i + ". Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            {
-                                shouldReplace = true;
-                                i--;
-                                continue;
-                            }
+                                if (MessageBox.Show("This Pokémon already has a move at index: " + i + ". Would you like to replace it?", "Error", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                {
+                                    shouldReplace = true;
+                                    i--;
+                                    continue;
+                                }
 
+                            }
                         }
                     }
                 }
+
+                Connection.Close();
+                Enabled = true;
+
+
             }
-
-
-
         }
 
-        
+
 
     }
 }

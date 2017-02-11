@@ -12,16 +12,10 @@ namespace PMDOAddPokémon.MySQLInitialization
 
         public static string GetMoveFromIndex(int index, MySqlConnection conn)
         {
-            string query = "SELECT * FROM move WHERE num = '" + index + "'";
-            MySqlCommand com = new MySqlCommand(query, conn);
-            MySqlDataReader reader = com.ExecuteReader();
+            
+            string result = Enum.GetName(typeof(PokéDex.Moves), index);
 
-            while (reader.Read())
-            {
-                return reader.GetString("name");
-            }
-
-            return "";
+            return result;
         }
 
     }

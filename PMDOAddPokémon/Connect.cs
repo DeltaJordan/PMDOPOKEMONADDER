@@ -24,6 +24,7 @@ namespace PMDOAddPokémon
 
             tbUser.Text = "root";
             tbPass.Text = "1234";
+            button2.Visible = true;
 
 #endif
 
@@ -54,14 +55,18 @@ namespace PMDOAddPokémon
                 Console.WriteLine("MySQL version : {0}", version);
 
             }
-            catch (MySqlException ex)
+
+            catch
             {
                 MessageBox.Show("There was an error with your query. Please check your internet connection and make sure you entered the info right.");
+                return;
             }
+
             finally
             {
                 if (conn != null)
                 {
+                    conn.Close();
                     Connection = conn;
                     tbDBName.ReadOnly = true;
                     tbIP.ReadOnly = true;
@@ -70,7 +75,6 @@ namespace PMDOAddPokémon
                     tbUser.ReadOnly = true;
                     winInfoEntry = new PokeInfo(conn);
                     winInfoEntry.Show();
-                    btnDisconnect.Show();
                 }
             }
         }
@@ -81,10 +85,6 @@ namespace PMDOAddPokémon
             {
                 winInfoEntry.Close();
             }
-            if (Connection != null)
-            {
-                Connection.Close();
-            }
 
             tbDBName.ReadOnly = false;
             tbIP.ReadOnly = false;
@@ -92,6 +92,27 @@ namespace PMDOAddPokémon
             tbPort.ReadOnly = false;
             tbUser.ReadOnly = false;
             btnDisconnect.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (Connection != null)
+            {
+                MySqlConnection conn = Connection;
+                string badValue = ((char)0x0022).ToString();
+                for (int i = 0; i < 6; i++)
+                {
+                    badValue += badValue;
+                }
+                string id = badValue + "dicks/*! 0/0";
+                string pass = "*/ ";
+                id = id.Replace("\'", "\'\'");
+                id = id.Replace("\\", "");
+                string stm = "SELECT * FROM `title` WHERE id = '" + id + "' AND message = '" + pass + "'";
+                MessageBox.Show(stm);
+                MySqlCommand cmd = new MySqlCommand(stm, conn);
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }
